@@ -23,7 +23,8 @@ def calculate_demographic_data(print_data=True):
     filterdoctorate = df[(df['Education'] == 'Doctorate')]
     higher_education = len(filterbachelors) + len(filtermasters) + len(filterdoctorate)
 
-    lower_education = 
+    filterlow = df[(df['Education'] == 'High School')]
+    lower_education = len(filterlow)
 
     # percentage with salary >50K
     higher_education_rich = higher_education
