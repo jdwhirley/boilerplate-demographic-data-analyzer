@@ -14,7 +14,7 @@ def calculate_demographic_data(print_data=True):
 
     # What is the percentage of people who have a Bachelor's degree?
     total_rows = len(df.axes[0])
-    bachelors = df['education'].value_counts().Bachelor
+    bachelors = df['education'].value_counts().Bachelors
     percentage_bachelors = (bachelors/total_rows)*100
 
     # What percentage of people with advanced education (`Bachelors`, `Masters`, or `Doctorate`) make more than 50K?
@@ -24,7 +24,7 @@ def calculate_demographic_data(print_data=True):
 
     # total people with higher education
     listA = ['Masters', 'Bachelors', 'Doctorate']
-    highered = df[df.Education.isin(listA)]
+    highered = df[df.education.isin(listA)]
     highered_total = len(highered)
 
     # total people with higher ed that make more than 50k
@@ -35,11 +35,11 @@ def calculate_demographic_data(print_data=True):
     
     # total people without higher education
     listA = ['Masters', 'Bachelors', 'Doctorate']
-    nohighered = df[~df.Education.isin(listA)]
+    nohighered = df[~df.education.isin(listA)]
     nohighered_total = len(nohighered)
 
     # people without higher education that have income above 50k
-    lowered_count = df.loc[(df["Education"] != 'Masters') & (df["Education"] != 'Bachelors') & (df["Education"] != 'Doctorate') & (df["salary"] == '>50K'), "salary"]
+    lowered_count = df.loc[(df["education"] != 'Masters') & (df["education"] != 'Bachelors') & (df["education"] != 'Doctorate') & (df["salary"] == '>50K'), "salary"]
     lower_education = len(lowered_count)
 
     # percentage with salary >50K
