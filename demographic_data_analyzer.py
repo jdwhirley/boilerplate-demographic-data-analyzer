@@ -28,9 +28,9 @@ def calculate_demographic_data(print_data=True):
     highered_total = len(highered)
 
     # total people with higher ed that make more than 50k
-    bach = df.loc[(df["Education"] == 'Bachelors') & (df["Income"] > 50000), "Income"]
-    mast = df.loc[(df["Education"] == 'Masters') & (df["Income"] > 50000), "Income"]
-    doc = df.loc[(df["Education"] == 'Doctorate') & (df["Income"] > 50000), "Income"]
+    bach = df.loc[(df["education"] == 'Bachelors') & (df["salary"] == '>50K'), 'salary']
+    mast = df.loc[(df["education"] == 'Masters') & (df["salary"] == '>50K'), 'salary']
+    doc = df.loc[(df["education"] == 'Doctorate') & (df["salary"] == '>50K'), 'salary']
     higher_education = len(bach) + len(mast)+ len(doc)
     
     # total people without higher education
@@ -39,7 +39,7 @@ def calculate_demographic_data(print_data=True):
     nohighered_total = len(nohighered)
 
     # people without higher education that have income above 50k
-    lowered_count = df.loc[(df["Education"] != 'Masters') & (df["Education"] != 'Bachelors') & (df["Education"] != 'Doctorate') & (df["Income"] > 50000), "Income"]
+    lowered_count = df.loc[(df["Education"] != 'Masters') & (df["Education"] != 'Bachelors') & (df["Education"] != 'Doctorate') & (df["income"] > 50000), "income"]
     lower_education = len(lowered_count)
 
     # percentage with salary >50K
@@ -47,10 +47,10 @@ def calculate_demographic_data(print_data=True):
     lower_education_rich = (lower_education/nohighered_total)*100
 
     # What is the minimum number of hours a person works per week (hours-per-week feature)?
-    min_work_hours = None
+    min_work_hours = df['hours-per-week'].min()
 
     # What percentage of the people who work the minimum number of hours per week have a salary of >50K?
-    num_min_workers = None
+    num_min_workers =  
 
     rich_percentage = None
 
