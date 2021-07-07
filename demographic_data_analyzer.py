@@ -9,26 +9,42 @@ def calculate_demographic_data(print_data=True):
     race_count = df['race'].value_counts()
 
     # What is the average age of men?
-    average_age_men = Avg(Count())
+    age_count = df.loc[df['sex'] == 'Male', 'age']
+    average_age_men = sum(age_count)/len(age_count)
 
     # What is the percentage of people who have a Bachelor's degree?
-    percentage_bachelors = (df.eductation.value_counts().Bachelors)*100
+    total_rows = len(df.axes[0])
+    bachelors = df['education'].value_counts().Bachelor
+    percentage_bachelors = (bachelors/total_rows)*100
 
     # What percentage of people with advanced education (`Bachelors`, `Masters`, or `Doctorate`) make more than 50K?
     # What percentage of people without advanced education make more than 50K?
 
-    # with and without `Bachelors`, `Masters`, or `Doctorate` 
-    filterbachelors = df[(df['Education'] == 'Bachelors')]
-    filtermasters = df[(df['Education'] == 'Masters')]
-    filterdoctorate = df[(df['Education'] == 'Doctorate')]
-    higher_education = len(filterbachelors) + len(filtermasters) + len(filterdoctorate)
+    # with and without `Bachelors`, `Masters`, or `Doctorate`
 
+    # total people with higher education
+    listA = ['Masters', 'Bachelors', 'Doctorate']
+    highered = df[df.Education.isin(listA)]
+    highered_total = len(highered)
+
+    # total people with higher ed that make more than 50k
+    bach = df.loc[(df["Education"] == 'Bachelors') & (df["Income"] > 50000), "Income"]
+    mast = df.loc[(df["Education"] == 'Masters') & (df["Income"] > 50000), "Income"]
+    doc = df.loc[(df["Education"] == 'Doctorate') & (df["Income"] > 50000), "Income"]
+    higher_education = len(bach) + len(mast)+ len(doc)
     
-    lower_education = len(filterlow)
+    # total people without higher education
+    listA = ['Masters', 'Bachelors', 'Doctorate']
+    nohighered = df[~df.Education.isin(listA)]
+    nohighered_total = len(nohighered)
+
+    # people without higher education that have income above 50k
+    lowered_count = df.loc[(df["Education"] != 'Masters') & (df["Education"] != 'Bachelors') & (df["Education"] != 'Doctorate') & (df["Income"] > 50000), "Income"]
+    lower_education = len(lowered_count)
 
     # percentage with salary >50K
-    higher_education_rich = higher_education
-    lower_education_rich = lower_education
+    higher_education_rich = (higher_education/highered_total)*100
+    lower_education_rich = (lower_education/nohighered_total)*100
 
     # What is the minimum number of hours a person works per week (hours-per-week feature)?
     min_work_hours = None
